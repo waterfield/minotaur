@@ -1,0 +1,23 @@
+{
+  "name": "minotaur",
+  "description": "Monitor App",
+  "version": "0.0.1",
+  "engines": {
+  	"node": "0.8.x"
+  },
+ 	"scripts": {
+ 		"start": "nodemon app.coffee localhost 8080"
+ 	},
+  "dependencies": {
+    "express": "3.x",
+    "mincer": "0.4.x",
+    "redis": "0.8.x",
+    "msgpack": "0.1.x",
+    "coffee-script": "1.4.x",
+    "stylus": "0.31.x",
+    "haml-coffee": "1.8.x",
+    "backbone": "0.9.x",
+    "underscore": "1.4.x",
+    "jquery": "1.8.x"
+  }
+}

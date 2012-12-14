@@ -1,0 +1,2 @@
+hello = ->
+	alert "test"
