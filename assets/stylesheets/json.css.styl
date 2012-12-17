@@ -1,0 +1,29 @@
+.json
+  margin-left 20px
+
+  span
+    -moz-border-radius 5px
+    -webkit-border-radius 5px
+    padding-right 5px
+    padding-left 5px
+    &.type
+      color gray
+  
+  li
+    margin-top 1px
+    padding-left 15px
+
+  ul
+    padding-left 15px
+    margin-left -15px
+    padding-top 0px
+    margin-top 0px
+    list-style-type none
+    background url(open.png) no-repeat 2px 5px
+    
+    &.closed
+      background url(closed.png) no-repeat 2px 5px
+      > *
+        display none
+        &:first-child
+          display block

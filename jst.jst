@@ -1,0 +1,17 @@
+(function() {
+  var _ref;
+
+  if ((_ref = window.HAML) == null) {
+    window.HAML = {};
+  }
+
+  window.HAML['jst'] = function(context) {
+    return (function() {
+      var $o;
+      $o = [];
+      $o.push("<div>Hello, %span= @name</div>");
+      return $o.join("\n");
+    }).call(context);
+  };
+
+}).call(this);

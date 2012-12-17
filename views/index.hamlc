@@ -1,0 +1,16 @@
+!!!
+%html
+	%head
+		%title Minotaur
+		%script{type: "text/javascript", src: "/assets/app.js"}
+		%link{rel: "stylesheet", type: "text/css", href: "/assets/app.css"}
+		%link{rel: "stylesheet", type: "text/css", href: "/assets/json.css"}
+	%body
+		%section.header
+			%span.app-title Minotaur
+			%canvas.smoothie
+			%ul.legend.inline-block
+		%section.navbar
+			%ul
+				%li Keys
+		%section.main

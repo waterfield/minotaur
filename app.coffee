@@ -1,17 +1,34 @@
 express = require 'express'
 Mincer = require 'mincer'
 redis = require 'redis'
-redeye = require 'redeye'
+Redeye = require 'redeye'
 $ = require 'jquery'
+routes = require './routes'
+path = require 'path'
+partials = require 'express-partials'
 
+# Asset management
 environment = new Mincer.Environment()
 environment.appendPath 'assets/javascripts'
 environment.appendPath 'assets/stylesheets'
+environment.appendPath 'assets/templates'
 
 db = redis.createClient()
 app = express()
+#app.use partials()
 
-manager = new redeye.Manager verbose: true, flush: true
+app.engine 'hamlc', require('haml-coffee').__express
+
+app.configure ->
+	app.set 'views', __dirname + '/views'
+	app.set 'view engine', 'hamlc'
+	app.use express.bodyParser()
+	app.use express.methodOverride()
+	app.use app.router
+	app.use express.static "#{__dirname}/public"
+
+# Redeye test
+manager = new Redeye.Manager verbose: true, flush: true
 
 manager.worker 'a', -> @each i:[1..4], @b
 manager.worker 'b', 'i', -> @each i:[@i*5-4..(@i*5)], @c
@@ -22,25 +39,9 @@ manager.worker 'e', -> 'ok'
 manager.run()
 setTimeout (-> manager.request 'a'), 100
 
-app.get '/', (req, res) ->
-	res.send 'hello world'
-
-app.get '/keys', (req, res) ->
-	db.keys '*', (error, keys) ->
-		if error
-			res.send []
-		else
-			db.mget keys, (err, values) ->
-				if err
-					res.send []
-				else
-					prefixes = []
-					for key, i in keys
-						split = key.split(':')
-						prefixes.push(split[0]) unless $.inArray(split[0], prefixes) != -1 || split[0] == 'sources' || split[0] == 'lock' || split[0] == 'targets' || split[0] == 'heartbeat' || split[0] == 'tasks'
-					prefixes.sort()
-					res.send prefixes
-
+app.get '/', routes.index
+app.get '/keys', routes.keys
+app.get '/keys/:prefix', routes.keys.prefix
 app.use '/assets/', Mincer.createServer environment
 
 app.listen 3000
