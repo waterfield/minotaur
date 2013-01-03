@@ -4,7 +4,6 @@
 		%title Minotaur
 		%script{type: "text/javascript", src: "/assets/app.js"}
 		%link{rel: "stylesheet", type: "text/css", href: "/assets/app.css"}
-		%link{rel: "stylesheet", type: "text/css", href: "/assets/json.css"}
 	%body
 		%section.header
 			%span.app-title Minotaur
@@ -12,5 +11,19 @@
 			%ul.legend.inline-block
 		%section.navbar
 			%ul
-				%li Keys
+				%li Keyspace
 		%section.main
+			%div#content
+				%div.row
+					%div.span3
+						%h1 Keys:
+						%div#keys-container
+					%div.span3
+						%h1 Info:
+						%div#value-container
+					%div.span3
+						%h1 Sources:
+						%div#sources-container
+					%div.span3
+						%h1 Targets:
+						%div#targets-container

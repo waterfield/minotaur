@@ -1,0 +1,6 @@
+%li Value:
+	= @value
+%li Sources:
+	= @sources
+%li Targets:
+	= @targets

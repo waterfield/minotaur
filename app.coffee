@@ -15,7 +15,6 @@ environment.appendPath 'assets/templates'
 
 db = redis.createClient()
 app = express()
-#app.use partials()
 
 app.engine 'hamlc', require('haml-coffee').__express
 
@@ -41,7 +40,8 @@ setTimeout (-> manager.request 'a'), 100
 
 app.get '/', routes.index
 app.get '/keys', routes.keys
-app.get '/keys/:prefix', routes.keys.prefix
+app.get '/value/:key', routes.value
+app.get '/state', routes.state
 app.use '/assets/', Mincer.createServer environment
 
 app.listen 3000

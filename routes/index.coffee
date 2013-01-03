@@ -1,3 +1,11 @@
+redis = require 'redis'
+$ = require 'jquery'
+_ = require 'underscore'
+msgpack = require 'msgpack'
+async = require 'async'
+
+db = redis.createClient()
+
 exports.index = (req, res) ->
 	res.render 'index'
 
@@ -6,20 +14,48 @@ exports.keys = (req, res) ->
 		if error
 			res.send []
 		else
-			db.mget keys, (err, values) ->
-				if err
-					res.send []
-				else
-					prefixes = []
-					for key, i in keys
-						split = key.split(':')
-						prefixes.push(split[0]) unless $.inArray(split[0], prefixes) != -1 || split[0] == 'sources' || split[0] == 'lock' || split[0] == 'targets' || split[0] == 'heartbeat' || split[0] == 'task'
-					prefixes.sort()
-					res.send prefixes
+			key_list = []
+			for key in keys
+				prefix = key.split(':')[0]
+				key_list.push {'name': key} unless prefix == 'sources' || prefix == 'lock' || prefix == 'targets' || prefix == 'heartbeat' || prefix == 'task'	
+			res.send key_list
+			# db.mget keys, (err, values) ->
+			# 	if err
+			# 		res.send []
+			# 	else
+					# prefixes = {}
+					# for key in keys
+					# 	prefix = key.split(':')[0]
+					# 	prefixes[prefix] = true unless prefix == 'sources' || prefix == 'lock' || prefix == 'targets' || prefix == 'heartbeat' || prefix == 'task'
+					# prefix_list = _.keys prefixes
+					# prefix_list.sort()
+					# prefix_list_json = []
+					# for prefix in prefix_list
+					# 	prefix_list_json.push {'name':prefix}
+					# prefix_json = {'prefixes':prefix_list_json}
+					# res.send values
 
-exports.keys.prefix = (req, res) ->
-	db.keys "#{req.params.prefix}*", (error, keys) ->
-		if error
-			res.send []
-		else
-			res.send keys
+exports.value = (req, res) ->
+	async.parallel {
+		value: (callback) ->
+			db.get req.params.key, (err, value) ->
+				buffer = new Buffer value
+				new_value = msgpack.unpack buffer
+				callback null, new_value
+		sources: (callback) ->
+			db.smembers "sources:#{req.params.key}", (err, sources) ->
+				sources_list = []
+				for key in sources
+					sources_list.push {"name":key}
+				callback null, sources_list
+		targets: (callback) ->
+			db.smembers "targets:#{req.params.key}", (err, targets) ->
+				targets_list = []
+				for key in targets
+					targets_list.push {"name":key}
+				callback null, targets_list
+		}, (err, results) ->
+				res.send results
+
+exports.state = (req, res) ->
+	res.send {}
