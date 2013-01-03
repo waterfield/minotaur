@@ -5,7 +5,11 @@
 #= require_tree ../templates
 #= require_tree ./models
 #= require_tree ./collections
+#= require ./views/item_view
+#= require ./views/list_view
 #= require_tree ./views
+#= require ./presenters/item_presenter
+#= require ./presenters/list_presenter
 #= require_tree ./presenters
 #= require_tree ./routers
 

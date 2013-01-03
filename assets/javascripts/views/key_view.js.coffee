@@ -1,15 +1,12 @@
-class KeyView extends Backbone.View
+class KeyView extends ItemView
 	tagName: "li"
 	className: "key"
 	events:
-		"click": "value"
+		"click": "click"
 		"mouseover": "mouseover"
 		"mouseout": "mouseout"
-	render: (data) =>
-		@$el.html JST['key'] key: data
-		this
-	value: ->
-		@trigger "value"
+	click: ->
+		@trigger "click"
 	mouseover: ->
 		@trigger "mouseover"
 	mouseout: ->

@@ -1,7 +1,4 @@
-class SourcesPresenter
-	constructor: (@data, @view) ->
-		@render()
-	render: ->
-		@view.render @data
-		$('#sources-container').html @view.el
-		this
+class SourcesPresenter extends ListPresenter
+	add: (model) ->
+		view = new SourceView()
+		presenter = new SourcePresenter model, view, '#source-list'

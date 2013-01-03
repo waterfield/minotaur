@@ -4,7 +4,7 @@ _ = require 'underscore'
 msgpack = require 'msgpack'
 async = require 'async'
 
-db = redis.createClient()
+db = redis.createClient(6379, "localhost", detect_buffers: true)
 
 exports.index = (req, res) ->
 	res.render 'index'
@@ -38,9 +38,8 @@ exports.keys = (req, res) ->
 exports.value = (req, res) ->
 	async.parallel {
 		value: (callback) ->
-			db.get req.params.key, (err, value) ->
-				buffer = new Buffer value
-				new_value = msgpack.unpack buffer
+			db.get new Buffer(req.params.key), (err, value) ->
+				new_value = msgpack.unpack value
 				callback null, new_value
 		sources: (callback) ->
 			db.smembers "sources:#{req.params.key}", (err, sources) ->

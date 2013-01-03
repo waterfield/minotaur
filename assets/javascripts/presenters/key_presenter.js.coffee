@@ -1,30 +1,22 @@
-class KeyPresenter
+class KeyPresenter extends ItemPresenter
 	constructor: (@model, @view, @id) ->
-		@view.on 'remove', @remove
-		@view.on 'value', @value
+		@view.on 'click', @click
 		@view.on 'mouseover', @mouseover
 		@view.on 'mouseout', @mouseout
-		@render()
-	render: ->
-		@view.render @model.get 'name'
-		$(@id).append @view.el
-		this
-	remove: ->
-		@model.destroy()
-		@view.remove()
-	value: =>
+		@render {key: @model.get 'name'}, 'key'
+	click: =>
 		$.ajax
 			url: '/value/' + @model.get 'name'
 			dataType: 'json'
-			success: (data) ->
+			success: (data) =>
 				valueView = new ValueView
-				sourcesView = new SourcesView
 				valuePresenter = new ValuePresenter data, valueView
-				sourcesPresenter = new SourcePresenter data, sourcesView
+				sources = new Keys
+				for obj in data.sources
+					sources.add(@model.collection.where name: obj.name) if @model.collection
+				#sourcesView = new SourceView
+				#sourcesPresenter = new SourcesPresenter sources, sourcesView, "#sources-container"
 	mouseover: =>
-		console.log 'mouseover'
-		console.log @view.el
 		@view.$el.addClass 'key-hover'
 	mouseout: =>
-		console.log 'mouseout'
 		@view.$el.removeClass 'key-hover'
