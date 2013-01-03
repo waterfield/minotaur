@@ -1,3 +1,3 @@
 class SourcePresenter extends ItemPresenter
 	constructor: (@model, @view, @id) ->
-		@render 'name'
+		@render {key: @model.get 'name'}, 'source'

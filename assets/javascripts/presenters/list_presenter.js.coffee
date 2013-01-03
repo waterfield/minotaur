@@ -3,7 +3,6 @@ class ListPresenter
 		@collection.on "add", @add, this
 		@collection.on "reset", @addAll, this
 		@render()
-	add: (model) ->
 	addAll: ->
 		@collection.each @add
 	render: ->

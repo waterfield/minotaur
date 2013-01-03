@@ -5,7 +5,7 @@ class Router extends Backbone.Router
 	index: ->
 		keys = new Keys
 		keys.fetch()
-		keysView = new KeysView null, 'keys'
-		keysPresenter = new KeysPresenter keys, keysView, "#keys-container"
+		keysView = new KeysView().render({}, 'keys')
+		keysPresenter = new KeysPresenter(keys, keysView, "#keys-container")
 	start: ->
 		Backbone.history.start pushState: true

@@ -12,10 +12,10 @@ class KeyPresenter extends ItemPresenter
 				valueView = new ValueView
 				valuePresenter = new ValuePresenter data, valueView
 				sources = new Keys
+				sourcesView = new SourcesView().render({}, 'sources')
+				sourcesPresenter = new SourcesPresenter sources, sourcesView, '#sources-container'
 				for obj in data.sources
 					sources.add(@model.collection.where name: obj.name) if @model.collection
-				#sourcesView = new SourceView
-				#sourcesPresenter = new SourcesPresenter sources, sourcesView, "#sources-container"
 	mouseover: =>
 		@view.$el.addClass 'key-hover'
 	mouseout: =>
