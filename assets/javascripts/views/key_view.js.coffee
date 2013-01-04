@@ -1,13 +1,13 @@
 class KeyView extends ItemView
-	tagName: "li"
-	className: "key"
+	tagName: 'li'
+	className: 'key'
 	events:
-		"click": "click"
-		"mouseover": "mouseover"
-		"mouseout": "mouseout"
+		'click': 'click'
+		'mouseover': 'mouseover'
+		'mouseout': 'mouseout'
 	click: ->
-		@trigger "click"
+		@trigger 'click'
 	mouseover: ->
-		@trigger "mouseover"
+		@trigger 'mouseover'
 	mouseout: ->
-		@trigger "mouseout"
+		@trigger 'mouseout'

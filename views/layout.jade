@@ -1,0 +1,15 @@
+!!!
+html
+	head
+		title Minotaur
+		script(type='text/javascript', src='/assets/app.js')
+		link(rel='stylesheet', type='text/css', href='/assets/app.css')
+	body
+		.navbar
+			.navbar-inner
+				a(class='brand', href='/') Minotaur
+				ul(class='nav')
+					li: a(href='/keyspace') Keyspace
+					li: a(href='/state') State
+		section.main
+			block content

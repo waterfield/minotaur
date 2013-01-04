@@ -4,8 +4,8 @@ redis = require 'redis'
 Redeye = require 'redeye'
 $ = require 'jquery'
 routes = require './routes'
+jade = require 'jade'
 path = require 'path'
-partials = require 'express-partials'
 
 # Asset management
 environment = new Mincer.Environment()
@@ -16,11 +16,12 @@ environment.appendPath 'assets/templates'
 db = redis.createClient()
 app = express()
 
-app.engine 'hamlc', require('haml-coffee').__express
+#app.engine 'jade', require('jade').__express
 
 app.configure ->
 	app.set 'views', __dirname + '/views'
-	app.set 'view engine', 'hamlc'
+	app.set 'view engine', 'jade'
+	app.locals.pretty = true
 	app.use express.bodyParser()
 	app.use express.methodOverride()
 	app.use app.router
@@ -39,9 +40,11 @@ manager.run()
 setTimeout (-> manager.request 'a'), 100
 
 app.get '/', routes.index
+app.get '/keyspace', routes.keyspace
+app.get '/state', routes.state_page
 app.get '/keys', routes.keys
 app.get '/value/:key', routes.value
-app.get '/state', routes.state
+app.get '/state/:manager', routes.state
 app.use '/assets/', Mincer.createServer environment
 
 app.listen 3000

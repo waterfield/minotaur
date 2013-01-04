@@ -4,10 +4,16 @@ _ = require 'underscore'
 msgpack = require 'msgpack'
 async = require 'async'
 
-db = redis.createClient(6379, "localhost", detect_buffers: true)
+db = redis.createClient(6379, 'localhost', detect_buffers: true)
 
 exports.index = (req, res) ->
 	res.render 'index'
+
+exports.keyspace = (req, res) ->
+	res.render 'keyspace'
+
+exports.state_page = (req, res) ->
+	res.render 'state'
 
 exports.keys = (req, res) ->
 	db.keys '*', (error, keys) ->
@@ -19,21 +25,6 @@ exports.keys = (req, res) ->
 				prefix = key.split(':')[0]
 				key_list.push {'name': key} unless prefix == 'sources' || prefix == 'lock' || prefix == 'targets' || prefix == 'heartbeat' || prefix == 'task'	
 			res.send key_list
-			# db.mget keys, (err, values) ->
-			# 	if err
-			# 		res.send []
-			# 	else
-					# prefixes = {}
-					# for key in keys
-					# 	prefix = key.split(':')[0]
-					# 	prefixes[prefix] = true unless prefix == 'sources' || prefix == 'lock' || prefix == 'targets' || prefix == 'heartbeat' || prefix == 'task'
-					# prefix_list = _.keys prefixes
-					# prefix_list.sort()
-					# prefix_list_json = []
-					# for prefix in prefix_list
-					# 	prefix_list_json.push {'name':prefix}
-					# prefix_json = {'prefixes':prefix_list_json}
-					# res.send values
 
 exports.value = (req, res) ->
 	async.parallel {
@@ -45,13 +36,13 @@ exports.value = (req, res) ->
 			db.smembers "sources:#{req.params.key}", (err, sources) ->
 				sources_list = []
 				for key in sources
-					sources_list.push {"name":key}
+					sources_list.push {'name':key}
 				callback null, sources_list
 		targets: (callback) ->
 			db.smembers "targets:#{req.params.key}", (err, targets) ->
 				targets_list = []
 				for key in targets
-					targets_list.push {"name":key}
+					targets_list.push {'name':key}
 				callback null, targets_list
 		}, (err, results) ->
 				res.send results
