@@ -1,14 +1,13 @@
 class Router extends Backbone.Router
 	routes:
 		'keyspace': 'keyspace'
-	initialize: ->
 	keyspace: ->
 		keys = new Keys
 
-		keysView = new KeysView().render size: '0', 'keys'
-		sourcesView = new SourcesView().render size: '0', 'sources'
-		targetsView = new SourcesView().render size: '0', 'targets'
-		valueView = new ValueView().render {}, 'value'
+		keysView = new KeysView().render size: '0', 'templates/keys'
+		sourcesView = new SourcesView().render size: '0', 'templates/sources'
+		targetsView = new SourcesView().render size: '0', 'templates/targets'
+		valueView = new ValueView().render {}, 'templates/value'
 
 		keysPresenter = new KeysPresenter keys, keysView, '#keys-container'
 		sourcesPresenter = new SourcesPresenter new Keys, sourcesView, '#sources-container'
@@ -17,6 +16,7 @@ class Router extends Backbone.Router
 
 		keys.fetch
 			success: ->
-				#keysView.render size: keys.size(), 'keys'
+				keysView.set_size keys.size()
+
 	start: ->
 		Backbone.history.start pushState: true

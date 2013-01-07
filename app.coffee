@@ -12,6 +12,7 @@ environment = new Mincer.Environment()
 environment.appendPath 'assets/javascripts'
 environment.appendPath 'assets/stylesheets'
 environment.appendPath 'assets/templates'
+environment.appendPath 'components'
 
 db = redis.createClient()
 app = express()
