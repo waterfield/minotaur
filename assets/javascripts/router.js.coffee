@@ -1,6 +1,7 @@
 class Router extends Backbone.Router
 	routes:
 		'keyspace': 'keyspace'
+
 	keyspace: ->
 		keys = new Keys
 

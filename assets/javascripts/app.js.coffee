@@ -1,18 +1,18 @@
-#= require jquery/jquery.min
-#= require underscore/underscore-min
-#= require backbone/backbone-min
-# require requirejs/require
+#= require jquery/jquery
+#= require underscore/underscore
+#= require backbone/backbone
+#= require bootstrap/docs/assets/js/bootstrap
 #= require jade/runtime
 #= require chai/chai
-#= require_tree ./templates
+#= require_tree templates
 #= require item
 #= require list
-#= require value
+#= require key
 #= require source
 #= require target
-#= require key
+#= require value
 #= require router
 
 $ ->
-	router = new Router()
-	router.start()
+		router = new Router()
+		router.start()
