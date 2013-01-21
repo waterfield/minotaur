@@ -3,8 +3,8 @@ class SourceView extends ListView
 	className: 'key'
 	events:
 		'click': 'click'
-	click: ->
-		@trigger 'click'
+	click: (event) ->
+		@trigger 'click', event.target
 
 class SourcesView extends ListView
 	set_size: (value) ->
@@ -14,7 +14,8 @@ class SourcePresenter extends ItemPresenter
 	constructor: (@model, @view, @id) ->
 		@view.on 'click', @click
 		@render {key: @model.get 'name'}, 'templates/source'
-	click: =>
+	click: (target) =>
+
 		$.ajax
 			url: '/value/' + @model.get 'name'
 			dataType: 'json'
@@ -23,9 +24,9 @@ class SourcePresenter extends ItemPresenter
 				valuePresenter = new ValuePresenter data, valueView
 				sources = new Keys
 				targets = new Keys
-				sourcesView = new SourcesView().render size: "0", 'templates/sources'
+				sourcesView = new SourcesView().render size: '0', 'templates/sources'
 				sourcesPresenter = new SourcesPresenter sources, sourcesView, '#sources-container'
-				targetsView = new SourcesView().render size: "0", 'templates/targets'
+				targetsView = new SourcesView().render size: '0', 'templates/targets'
 				targetsPresenter = new TargetsPresenter targets, targetsView, '#targets-container'
 				for obj in data.sources
 					sources.add(@model.collection.where name: obj.name) if @model.collection

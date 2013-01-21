@@ -39,8 +39,6 @@ class KeysView extends ListView
 class KeyPresenter extends ItemPresenter
 	constructor: (@model, @view, @id) ->
 		@view.on 'click', @click
-		@view.on 'mouseover', @mouseover
-		@view.on 'mouseout', @mouseout
 		@render {key: @model.get 'name'}, 'templates/key'
 	click: (target) =>
 		$('#key-list .active').removeClass 'active'
@@ -63,11 +61,6 @@ class KeyPresenter extends ItemPresenter
 					targets.add(@model.collection.where name: obj.name) if @model.collection
 				sourcesView.set_size sources.size()
 				targetsView.set_size targets.size()
-
-	mouseover: =>
-		@view.$el.addClass 'key-hover'
-	mouseout: =>
-		@view.$el.removeClass 'key-hover'
 
 class KeysPresenter extends ListPresenter
 	add: (model) =>

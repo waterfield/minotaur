@@ -5,8 +5,9 @@ class ValueView extends Backbone.View
 		@$el.html JST['templates/value'] value: data.value
 		this
 	click: (event) ->
+		console.log event
 		event.stopPropagation()
-		@trigger 'click', event.target
+		@trigger 'click', event.currentTarget
 
 class ValuePresenter
 	constructor: (@data, @view) ->
@@ -17,7 +18,6 @@ class ValuePresenter
 		$('#value-container').html @view.el
 		this
 	click: (target) ->
-		console.log $(target)
 		if $(target).hasClass 'closed'
 			$(target).removeClass 'closed'
 		else
