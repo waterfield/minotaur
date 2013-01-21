@@ -15,7 +15,6 @@ class SourcePresenter extends ItemPresenter
 		@view.on 'click', @click
 		@render {key: @model.get 'name'}, 'templates/source'
 	click: (target) =>
-
 		$.ajax
 			url: '/value/' + @model.get 'name'
 			dataType: 'json'
