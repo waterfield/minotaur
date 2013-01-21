@@ -5,7 +5,7 @@ almost_white = #f3f3f3
 highlighted = #ff6
 fonts = Arial, Verdana, sans-serif
 
-#content
+.content
   li
     list-style none
 
@@ -14,3 +14,22 @@ fonts = Arial, Verdana, sans-serif
   overflow auto
   background light_gray
   padding 10px
+
+	li
+		&:not(.tree)
+		span
+			&:hover
+				background-color pivotal_blue
+				color white
+				
+	li.active
+		background-color pivotal_blue
+		color white
+
+.open
+	display block
+
+.closed
+	ul
+		display none
+

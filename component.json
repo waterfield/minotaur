@@ -8,6 +8,8 @@
 		"bootstrap": "2.2.2",
 		"jade": "0.27.7",
 		"chai": "1.4.2",
-		"requirejs": "2.1.2"
+		"mocha": "1.8.1",
+		"eventemitter2": "0.4.x",
+		"sinon": "1.5.2"
 	}
 }

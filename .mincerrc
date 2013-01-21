@@ -1,1 +1,1 @@
---include assets/javascripts --include assets/stylesheets --include assets/javascripts/templates --output public/assets
+--include assets/javascripts --include assets/stylesheets --include assets/javascripts/templates --include components/ --output public/assets

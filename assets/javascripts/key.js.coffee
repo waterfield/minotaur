@@ -24,8 +24,9 @@ class KeyView extends ItemView
 		'click': 'click'
 		'mouseover': 'mouseover'
 		'mouseout': 'mouseout'
-	click: ->
-		@trigger 'click'
+	click: (event) ->
+		event.stopPropagation()
+		@trigger 'click', event.target
 	mouseover: ->
 		@trigger 'mouseover'
 	mouseout: ->
@@ -41,7 +42,9 @@ class KeyPresenter extends ItemPresenter
 		@view.on 'mouseover', @mouseover
 		@view.on 'mouseout', @mouseout
 		@render {key: @model.get 'name'}, 'templates/key'
-	click: =>
+	click: (target) =>
+		$('#key-list .active').removeClass 'active'
+		$(target).addClass 'active'
 		$.ajax
 			url: '/value/' + @model.get 'name'
 			dataType: 'json'

@@ -10,6 +10,6 @@ class ItemPresenter
 		@view.render data, template
 		$(@id).append @view.el
 		this
-	remove: ->
+	remove: =>
 		@model.destroy()
 		@view.remove()

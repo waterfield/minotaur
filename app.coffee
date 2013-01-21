@@ -47,5 +47,7 @@ app.get '/keys', routes.keys
 app.get '/value/:key', routes.value
 app.get '/state/:manager', routes.state
 app.use '/assets/', Mincer.createServer environment
+app.get '/tests', routes.tests
+app.get '/test', routes.test
 
 app.listen 3000
