@@ -3,9 +3,12 @@ Mincer = require 'mincer'
 redis = require 'redis'
 Redeye = require 'redeye'
 $ = require 'jquery'
-routes = require './routes'
 jade = require 'jade'
-path = require 'path'
+
+# Routes
+main = require './routes/index'
+minotaur = require './routes/minotaur'
+monitor = require './routes/monitor'
 
 # Asset management
 environment = new Mincer.Environment()
@@ -40,14 +43,22 @@ manager.worker 'e', -> 'ok'
 manager.run()
 setTimeout (-> manager.request 'a'), 100
 
-app.get '/', routes.index
-app.get '/keyspace', routes.keyspace
-app.get '/state', routes.state_page
-app.get '/keys', routes.keys
-app.get '/value/:key', routes.value
-app.get '/state/:manager', routes.state
+console.log main
+
+# Pages
+app.get '/', minotaur.index
+app.get '/keyspace', minotaur.keyspace
+app.get '/state', minotaur.state_page
+app.get '/monitor', monitor.monitor
+
+# API
+app.get '/keys', minotaur.keys
+app.get '/value/:key', minotaur.value
+app.get '/state/:manager', minotaur.state
+
+# Misc
 app.use '/assets/', Mincer.createServer environment
-app.get '/tests', routes.tests
-app.get '/test', routes.test
+app.get '/tests', main.tests
+app.get '/test', main.test
 
 app.listen 3000

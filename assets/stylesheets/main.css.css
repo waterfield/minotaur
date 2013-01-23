@@ -1,0 +1,21 @@
+.content li {
+  list-style: none;
+}
+.key-list {
+  height: 300px;
+  overflow: auto;
+  background: #ddd;
+  padding: 10px;
+}
+#value-container {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+.open {
+  display: block;
+}
+.closed ul {
+  display: none;
+}
