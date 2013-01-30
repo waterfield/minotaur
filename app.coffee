@@ -32,7 +32,8 @@ app.configure ->
 	app.use express.static "#{__dirname}/public"
 
 # Pages
-app.get '/', minotaur.index
+app.get '/', (req, res) ->
+  res.redirect('/keyspace')
 app.get '/keyspace', minotaur.keyspace
 app.get '/state', minotaur.state_page
 app.get '/monitor', monitor.monitor
