@@ -19,20 +19,7 @@ class SourcePresenter extends ItemPresenter
 			url: '/value/' + @model.get 'name'
 			dataType: 'json'
 			success: (data) =>
-				valueView = new ValueView
-				valuePresenter = new ValuePresenter data, valueView
-				sources = new Keys
-				targets = new Keys
-				sourcesView = new SourcesView().render size: '0', 'templates/sources'
-				sourcesPresenter = new SourcesPresenter sources, sourcesView, '#sources-container'
-				targetsView = new SourcesView().render size: '0', 'templates/targets'
-				targetsPresenter = new TargetsPresenter targets, targetsView, '#targets-container'
-				for obj in data.sources
-					sources.add(@model.collection.where name: obj.name) if @model.collection
-				for obj in data.targets
-					targets.add(@model.collection.where name: obj.name) if @model.collection
-				sourcesView.set_size sources.size()
-				targetsView.set_size targets.size()
+				update_key_lists @model, data
 
 class SourcesPresenter extends ListPresenter
 	add: (model) ->

@@ -10,6 +10,7 @@
 #= require sinon/lib/sinon/util/fake_server
 #= require eventemitter2/lib/eventemitter2
 #= require setup_mocha
+#= require_tree helpers
 #= require item
 #= require list
 #= require key

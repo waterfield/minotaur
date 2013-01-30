@@ -6,7 +6,7 @@ db = redis.createClient(6379, 'localhost', detect_buffers: true)
 
 # Pages
 exports.index = (req, res) ->
-  res.render 'index'
+  res.render 'keyspace'
 
 exports.keyspace = (req, res) ->
   res.render 'keyspace'

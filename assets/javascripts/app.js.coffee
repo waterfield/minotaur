@@ -4,6 +4,7 @@
 #= require bootstrap/docs/assets/js/bootstrap
 #= require jade/runtime
 #= require chai/chai
+#= require_tree helpers
 #= require_tree templates
 #= require item
 #= require list

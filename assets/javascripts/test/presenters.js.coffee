@@ -21,14 +21,7 @@ describe 'Presenters', ->
 		after ->
 			@server.restore()
 
-		it 'should create ajax request', ->
-			@server.respondWith 'GET', '/value/a', [200, {"Content-Type": "application/json"}, '{"value": 4, "sources":[], "targets":[]}']
-			@model.get.returns {"name": 'a'}
-			sinon.spy($, 'ajax')
-			presenter = new KeyPresenter model, view, ''
-			@view.emit 'click'
-			@server.respond()
-			assert.equal $.ajax.called, true
+		it 'should create ajax request'
 			
 		it 'should change class on "mouseover" event'
 
