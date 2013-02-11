@@ -27,9 +27,9 @@ _build_object = (obj) ->
 
 _build_array = (arr) ->
 	str = '<ul>'
-	for obj in arr
-		str += '<li>'
-		str += json_to_tree(obj)
+	for obj, i in arr
+		str += '<li class="tree closed"><span>' + i
+		str += '</span>' + json_to_tree(obj)
 		str += '</li>'
 	str += '</ul>'
 	str

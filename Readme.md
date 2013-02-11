@@ -4,7 +4,9 @@ Minotaur
 Installation
 ------------
 
-```shell
+```bash
+npm install bower -g
+
 npm install
 npm link redeye
 bower install
@@ -13,7 +15,8 @@ bower install
 Usage
 --------
 
-```shell
+```bash
 redis-server
-npm start
+npm start (for development)
+node server.js (for production)
 ```
