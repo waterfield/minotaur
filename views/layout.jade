@@ -1,16 +1,19 @@
 !!!
 html
-	head
-		title Minotaur
-		script(type='text/javascript', src='/assets/app.js')
-		link(rel='stylesheet', type='text/css', href='/assets/app.css')
-	body
-		.navbar
-			.navbar-inner
-				a(class='brand', href='/') Minotaur
-				ul(class='nav')
-					li: a(href='/keyspace') Keyspace
-					li: a(href='/state') State
-					li: a(href='/monitor') Monitor
-		section.main
-			block content
+  head
+    meta(charset='UTF-8')
+    title Minotaur
+    script(type='text/javascript', src='/assets/app.js')
+    link(rel='stylesheet', type='text/css', href='/assets/app.css')
+    noscript Javascript must be enabled to use this website.
+  body
+    .navbar
+      .navbar-inner
+        a(class='brand', href='/') Minotaur
+        ul(class='nav')
+          li: a(href='/keyspace') Keyspace
+          li: a(href='/state') State
+          li: a(href='/monitor') Monitor
+    section.main
+      block content
+    footer

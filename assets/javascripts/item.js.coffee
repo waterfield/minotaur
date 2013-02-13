@@ -4,12 +4,11 @@ class ItemView extends Backbone.View
 		this
 		
 class ItemPresenter
-	constructor: (@model, @view, @id) ->
-		@view.on 'remove', @remove
 	render: (data, template) ->
 		@view.render data, template
 		$(@id).append @view.el
 		this
-	remove: =>
+	remove: ->
+		console.log "Destroyed"
 		@model.destroy()
 		@view.remove()

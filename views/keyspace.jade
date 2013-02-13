@@ -1,8 +1,11 @@
 extends layout
 block content
-	.content
-		.row
-			.span3#keys-container
-			.span3#sources-container
-			.span3#targets-container
-			.span3#value-container
+  input(id='search-box', type='search')
+  button(id='search', class='btn') Search
+  button(id='reset', class='btn') Reset
+  .content
+    .row
+      .span3#keys-container
+      .span3#sources-container
+      .span3#targets-container
+      .span3#value-container

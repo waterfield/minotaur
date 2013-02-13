@@ -16,7 +16,8 @@ exports.state_page = (req, res) ->
 
 # API
 exports.keys = (req, res) ->
-  db.keys '*', (error, keys) ->
+  console.log req.param('pattern')
+  db.keys req.param('pattern'), (error, keys) ->
     if error
       res.send []
     else
@@ -30,20 +31,29 @@ exports.value = (req, res) ->
   async.parallel {
     value: (callback) ->
       db.get new Buffer(req.params.key), (err, value) ->
-        new_value = msgpack.unpack value
-        callback null, new_value
+        if err
+          res.send []
+        else
+          new_value = msgpack.unpack value
+          callback null, new_value
     sources: (callback) ->
       db.smembers "sources:#{req.params.key}", (err, sources) ->
-        sources_list = []
-        for key in sources
-          sources_list.push {'name':key}
-        callback null, sources_list
+        if err
+          res.send []
+        else
+          sources_list = []
+          for key in sources
+            sources_list.push {'name':key}
+          callback null, sources_list
     targets: (callback) ->
       db.smembers "targets:#{req.params.key}", (err, targets) ->
-        targets_list = []
-        for key in targets
-          targets_list.push {'name':key}
-        callback null, targets_list
+        if err
+          res.send []
+        else
+          targets_list = []
+          for key in targets
+            targets_list.push {'name':key}
+          callback null, targets_list
     }, (err, results) ->
         res.send results
         

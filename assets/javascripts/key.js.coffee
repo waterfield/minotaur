@@ -39,6 +39,7 @@ class KeysView extends ListView
 class KeyPresenter extends ItemPresenter
 	constructor: (@model, @view, @id) ->
 		@view.on 'click', @click
+		@model.collection.on 'reset', @reset
 		@render {key: @model.get 'name'}, 'templates/key'
 	click: (target) =>
 		$('#key-list .active').removeClass 'active'
@@ -47,9 +48,11 @@ class KeyPresenter extends ItemPresenter
 			url: '/value/' + @model.get 'name'
 			dataType: 'json'
 			success: (data) =>
-				update_key_lists @model, data
+	reset: =>
+		@model.destroy()
+		@view.remove()
 
 class KeysPresenter extends ListPresenter
 	add: (model) =>
-		view = new KeyView
+		view = new KeyView model
 		presenter = new KeyPresenter model, view, '#key-list'
