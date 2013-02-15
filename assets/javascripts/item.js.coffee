@@ -9,6 +9,5 @@ class ItemPresenter
 		$(@id).append @view.el
 		this
 	remove: ->
-		console.log "Destroyed"
 		@model.destroy()
 		@view.remove()

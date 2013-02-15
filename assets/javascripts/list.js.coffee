@@ -9,7 +9,6 @@ class ListPresenter
     @collection.on 'reset', @addAll
     @render()
   addAll: =>
-    console.log "Reset"
     @collection.each @add
   render: ->
     $(@id).html @view.el

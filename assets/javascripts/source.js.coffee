@@ -13,13 +13,16 @@ class SourcesView extends ListView
 class SourcePresenter extends ItemPresenter
   constructor: (@model, @view, @id) ->
     @view.on 'click', @click
+    @model.collection.on 'reset', @reset
     @render {key: @model.get 'name'}, 'templates/source'
+  reset: =>
+    @model.destroy()
+    @view.remove()
   click: (target) =>
     $.ajax
       url: '/value/' + @model.get 'name'
       dataType: 'json'
       success: (data) =>
-        update_key_lists @model, data
 
 class SourcesPresenter extends ListPresenter
   add: (model) ->

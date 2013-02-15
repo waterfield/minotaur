@@ -16,7 +16,6 @@ exports.state_page = (req, res) ->
 
 # API
 exports.keys = (req, res) ->
-  console.log req.param('pattern')
   db.keys req.param('pattern'), (error, keys) ->
     if error
       res.send []
