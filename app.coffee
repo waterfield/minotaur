@@ -3,7 +3,6 @@ Mincer = require 'mincer'
 $ = require 'jquery'
 jade = require 'jade'
 
-# redis = require 'redis'
 Redeye = require 'redeye'
 
 # Routes
@@ -14,10 +13,8 @@ minotaur = require './routes/minotaur'
 environment = new Mincer.Environment()
 environment.appendPath 'assets/javascripts'
 environment.appendPath 'assets/stylesheets'
-environment.appendPath 'assets/javascripts/templates'
 environment.appendPath 'components'
 
-#db = redis.createClient()
 app = express()
 
 #app.engine 'jade', require('jade').__express

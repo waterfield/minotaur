@@ -2,18 +2,13 @@
 #= require underscore/underscore
 #= require backbone/backbone
 #= require bootstrap/docs/assets/js/bootstrap
-#= require jade/runtime
+#= require handlebars/handlebars
 #= require chai/chai
 #= require_tree helpers
-#= require_tree templates
-#= require item
-#= require list
+#= require base
+#= require search
 #= require key
-#= require source
-#= require target
-#= require value
-#= require router
+#= require conductor
 
 $ ->
-		router = new Router()
-		router.start()
+	app = new Conductor()

@@ -17,37 +17,21 @@ class Keys extends Backbone.Collection
       return 1 if x_ > y_
     return 0
 
-class KeyView extends ItemView
-  tagName: 'li'
-  className: 'key'
-  events:
-    'click': 'click'
-  click: (event) ->
-    #event.stopPropagation()
-    @trigger 'click', event.target
-  mouseover: ->
-    @trigger 'mouseover'
-  mouseout: ->
-    @trigger 'mouseout'
-
-class KeysView extends ListView
-  set_size: (value) ->
+class KeysView extends Backbone.View
+  render: (keys, size) =>
+    $('#keys-container').html @el
+    @$el.html Handlebars.compile($('#keys-template').html()) size: size, keys: keys
+  set_size: (value) =>
     @$('.size')[0].innerHTML = value
 
-class KeyPresenter extends ItemPresenter
-  constructor: (@model, @view, @id) ->
-    @view.on 'click', @click
-    @model.collection.on 'reset', @reset
-    @render {key: @model.get 'name'}, 'templates/key'
-  click: (target) =>
-    $('#key-list .active').removeClass 'active'
-    $(target).addClass 'active'
-    $.ajax
-      url: '/value/' + @model.get 'name'
-      dataType: 'json'
-      success: (data) =>
-
-class KeysPresenter extends ListPresenter
-  add: (model) =>
-    view = new KeyView model
-    presenter = new KeyPresenter model, view, '#key-list'
+class KeysPresenter extends Presenter
+  constructor: ->
+    @keys = new Keys
+    @view = new KeysView
+    @display(null, 0)
+    @keys.on 'reset', =>
+      @display(@keys.toJSON(), @keys.size())
+  display: (keys, size) ->
+    @view.render(keys, size)
+  search: (value) =>
+    @keys.fetch data: pattern: value

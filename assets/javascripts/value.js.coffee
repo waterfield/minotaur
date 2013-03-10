@@ -2,7 +2,7 @@ class ValueView extends Backbone.View
 	events:
 		'click li': 'click'
 	render: (data) =>
-		@$el.html JST['templates/value'] html: data
+		@$el.html Handlebars.compile($('#value-template').html()) html: data
 		this
 	click: (event) ->
 		event.stopPropagation()
@@ -16,7 +16,7 @@ class ValuePresenter
 	render: =>
 		@view.render @data_html
 		$('#value-container').html @view.el
-		this
+		@
 	click: (target) ->
 		if $(target).hasClass 'closed'
 			$(target).removeClass 'closed'

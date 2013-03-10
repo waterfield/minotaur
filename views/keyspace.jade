@@ -1,11 +1,39 @@
 extends layout
 block content
-  input(id='search-box', type='search')
-  button(id='search', class='btn') Search
-  button(id='reset', class='btn') Reset
+  div#search-container
   .content
     .row
       .span3#keys-container
       .span3#sources-container
       .span3#targets-container
       .span3#value-container
+block templates
+  script#search-template(type='text/x-handlebars-template')
+    input#search-data(type='search')
+    button#search.btn Search
+    button#reset.btn Reset
+  script#key-template(type='text/x-handlebars-template')
+    {{key}}
+  script#keys-template(type='text/x-handlebars-template')
+    h1 Keys:
+    h2.size {{size}}
+    #key-list-container.key-list
+      ul#key-list
+        {{#each keys}}
+        li {{this.name}}
+        {{/each}}
+  script#source-template(type='text/x-handlebars-template')
+    {{key}}
+  script#sources-template(type='text/x-handlebars-template')
+    h1 Sources:
+    h2.size {{size}}
+      #source-list-container.key-list
+        ul#source-list
+  script#targets-template(type='text/x-handlebars-template')
+    h1 Targets:
+    h2.size {{size}}
+      #target-list-container.key-list
+        ul#target-list
+  script#value-template(type='text/x-handlebars-template')
+    h1 Value:
+    {{html}}

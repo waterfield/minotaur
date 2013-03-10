@@ -14,7 +14,7 @@ class SourcePresenter extends ItemPresenter
   constructor: (@model, @view, @id) ->
     @view.on 'click', @click
     @model.collection.on 'reset', @reset
-    @render {key: @model.get 'name'}, 'templates/source'
+    @render {key: @model.get 'name'}, '#source-template'
   reset: =>
     @model.destroy()
     @view.remove()
