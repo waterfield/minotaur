@@ -4,16 +4,15 @@ class Targets extends Backbone.Collection
 
 class TargetsPresenter extends Presenter
   constructor: ->
-    @targets = new Targets
+    @collection = new Targets
     @view = new TargetsView el: '#targets-container'
     @display null, 0
-    @Targets.on 'reset', =>
-      @display @targets.toJSON(), @targets.size()
+    @collection.on 'reset', =>
+      @display @collection.toJSON(), @collection.size()
   display: (keys, size) ->
     @view.render keys, size
   value: (value) ->
-    $.ajax url:"/value/#{value}", success: (data) =>
-      @targets.reset data.Targets
+    @collection.reset value
 
 class TargetsView extends Backbone.View
   events:

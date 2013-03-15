@@ -4,14 +4,15 @@ class Sources extends Backbone.Collection
 
 class SourcesPresenter extends Presenter
   constructor: ->
-    @sources = new Sources
+    @collection = new Sources
     @view = new SourcesView el: '#sources-container'
     @display null, 0
-    @sources.on 'reset', =>
-      @display @sources.toJSON(), @sources.size()
+    @collection.on 'reset', =>
+      @display @collection.toJSON(), @collection.size()
   display: (keys, size) ->
     @view.render keys, size
-  value: (value) ->
+  value: (value) =>
+    @collection.reset value
 
 class SourcesView extends Backbone.View
   events:
@@ -22,4 +23,4 @@ class SourcesView extends Backbone.View
   set_size: (value) =>
     @$('.size')[0].innerHTML = value
   click: (e) ->
-    console.log "source click"
+    @trigger 'detail', $(e.currentTarget).data('id')

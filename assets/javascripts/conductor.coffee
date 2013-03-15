@@ -4,12 +4,13 @@ class Conductor extends Presenter
     keysP = new KeysPresenter
     sourcesP = new SourcesPresenter
     targetsP = new TargetsPresenter
-    valueP = new ValuePresenter
+    #valueP = new ValuePresenter
 
     searchP.on 'search', (e) => keysP.search e
     keysP.on 'detail', (e) =>
-      $.ajax url:"/value/#{value}",
-        success: (data) =>
-          sourcesP.value data.sources
-          targetsP.value data.targets
-          valueP.value data.value
+      # console.log "#{e}"
+      $.ajax url: "/value/#{e}", success: (data) =>
+        # console.log data
+        sourcesP.value data.sources
+        targetsP.value data.targets
+        valueP.value data.value
