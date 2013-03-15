@@ -12,28 +12,30 @@ block templates
     input#search-data(type='search')
     button#search.btn Search
     button#reset.btn Reset
-  script#key-template(type='text/x-handlebars-template')
-    {{key}}
   script#keys-template(type='text/x-handlebars-template')
     h1 Keys:
     h2.size {{size}}
     #key-list-container.key-list
       ul#key-list
         {{#each keys}}
-        li {{this.name}}
+        li(class='key', data-id='{{this.name}}') {{this.name}}
         {{/each}}
-  script#source-template(type='text/x-handlebars-template')
-    {{key}}
   script#sources-template(type='text/x-handlebars-template')
     h1 Sources:
     h2.size {{size}}
-      #source-list-container.key-list
-        ul#source-list
+    #source-list-container.key-list
+      ul#source-list
+        {{#each keys}}
+        li(class='key', data-id='{{this.name}}') {{this.name}}
+        {{/each}}
   script#targets-template(type='text/x-handlebars-template')
     h1 Targets:
     h2.size {{size}}
-      #target-list-container.key-list
-        ul#target-list
+    #target-list-container.key-list
+      ul#target-list
+        {{#each keys}}
+        li(class='key', data-id='{{this.name}}') {{this.name}}
+        {{/each}}
   script#value-template(type='text/x-handlebars-template')
     h1 Value:
     {{html}}

@@ -8,6 +8,9 @@
 #= require base
 #= require search
 #= require key
+#= require source
+#= require target
+#= require value
 #= require conductor
 
 $ ->

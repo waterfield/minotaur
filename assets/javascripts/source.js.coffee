@@ -1,30 +1,25 @@
-class SourceView extends ListView
-  tagName: 'li'
-  className: 'key'
+class Source extends Backbone.Model
+class Sources extends Backbone.Collection
+  model: Source
+
+class SourcesPresenter extends Presenter
+  constructor: ->
+    @sources = new Sources
+    @view = new SourcesView el: '#sources-container'
+    @display null, 0
+    @sources.on 'reset', =>
+      @display @sources.toJSON(), @sources.size()
+  display: (keys, size) ->
+    @view.render keys, size
+  value: (value) ->
+
+class SourcesView extends Backbone.View
   events:
-    'click': 'click'
-  click: (event) ->
-    @trigger 'click', event.target
-
-class SourcesView extends ListView
-  set_size: (value) ->
+    "click li": "click"
+  render: (keys, size) ->
+    @$el.html Handlebars.compile($('#sources-template').html()) size: size, keys: keys
+    @
+  set_size: (value) =>
     @$('.size')[0].innerHTML = value
-
-class SourcePresenter extends ItemPresenter
-  constructor: (@model, @view, @id) ->
-    @view.on 'click', @click
-    @model.collection.on 'reset', @reset
-    @render {key: @model.get 'name'}, '#source-template'
-  reset: =>
-    @model.destroy()
-    @view.remove()
-  click: (target) =>
-    $.ajax
-      url: '/value/' + @model.get 'name'
-      dataType: 'json'
-      success: (data) =>
-
-class SourcesPresenter extends ListPresenter
-  add: (model) ->
-    view = new SourceView
-    presenter = new SourcePresenter model, view, '#source-list'
+  click: (e) ->
+    console.log "source click"

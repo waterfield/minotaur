@@ -1,6 +1,6 @@
 class SearchPresenter extends Presenter
   constructor: ->
-    @view = new SearchView
+    @view = new SearchView el: "#search-container"
     @display()
     @view.on 'search', (e) => @trigger 'search', e
   display: ->
@@ -11,7 +11,6 @@ class SearchView extends Backbone.View
     "click #search": "click"
   render: ->
     @$el.html $('#search-template').html()
-    $('#search-container').html @el
     @
   click: ->
     @trigger 'search', @$('#search-data').val()

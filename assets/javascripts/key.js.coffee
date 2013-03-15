@@ -17,21 +17,25 @@ class Keys extends Backbone.Collection
       return 1 if x_ > y_
     return 0
 
-class KeysView extends Backbone.View
-  render: (keys, size) =>
-    $('#keys-container').html @el
-    @$el.html Handlebars.compile($('#keys-template').html()) size: size, keys: keys
-  set_size: (value) =>
-    @$('.size')[0].innerHTML = value
-
 class KeysPresenter extends Presenter
   constructor: ->
     @keys = new Keys
-    @view = new KeysView
-    @display(null, 0)
-    @keys.on 'reset', =>
-      @display(@keys.toJSON(), @keys.size())
+    @view = new KeysView el: '#keys-container'
+    @display null, 0
+    @keys.on 'reset', => @display @keys.toJSON(), @keys.size()
+    @view.on 'detail', (e) => @trigger 'detail', e
   display: (keys, size) ->
-    @view.render(keys, size)
+    @view.render keys, size
   search: (value) =>
     @keys.fetch data: pattern: value
+
+class KeysView extends Backbone.View
+  events:
+    "click li": "click"
+  render: (keys, size) ->
+    @$el.html Handlebars.compile($('#keys-template').html()) size: size, keys: keys
+    @
+  set_size: (value) =>
+    @$('.size')[0].innerHTML = value
+  click: (e) ->
+    @trigger 'detail', $(e.currentTarget).data('id')
