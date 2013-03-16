@@ -9,18 +9,22 @@ class TargetsPresenter extends Presenter
     @display null, 0
     @collection.on 'reset', =>
       @display @collection.toJSON(), @collection.size()
+    @view.on 'detail', (e) =>
+      @trigger 'detail', e
   display: (keys, size) ->
     @view.render keys, size
-  value: (value) ->
+  value: (value) =>
     @collection.reset value
+  clear: =>
+    @collection.reset
 
 class TargetsView extends Backbone.View
   events:
     "click li": "click"
   render: (keys, size) ->
-    @$el.html Handlebars.compile($('#targets-template').html()) size: size, keys: keys
+    @$el.html Handlebars.compile($('#targets-template').html()) keys: keys, size: size
     @
   set_size: (value) =>
     @$('.size')[0].innerHTML = value
   click: (e) ->
-    console.log "target click"
+    @trigger 'detail', $(e.currentTarget).data('id')

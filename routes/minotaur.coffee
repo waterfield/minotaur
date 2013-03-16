@@ -1,8 +1,18 @@
 redis = require 'redis'
 msgpack = require 'msgpack'
 async = require 'async'
+fs = require 'fs'
 
-db = redis.createClient(6379, 'localhost', detect_buffers: true)
+# Configuration
+configJSON = fs.readFileSync './config/minotaur.json'
+try
+  config = JSON.parse(configJSON);
+catch err
+  console.log('There has been an error parsing your JSON.')
+  console.log(err);
+
+db = redis.createClient(config.port, config.host, detect_buffers: true)
+db.select config.slice
 
 # Pages
 exports.index = (req, res) ->

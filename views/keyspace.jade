@@ -11,7 +11,6 @@ block templates
   script#search-template(type='text/x-handlebars-template')
     input#search-data(type='search')
     button#search.btn Search
-    button#reset.btn Reset
   script#keys-template(type='text/x-handlebars-template')
     h1 Keys:
     h2.size {{size}}
@@ -38,4 +37,4 @@ block templates
         {{/each}}
   script#value-template(type='text/x-handlebars-template')
     h1 Value:
-    {{html}}
+    {{{html}}}

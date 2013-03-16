@@ -12,6 +12,7 @@
     "express": "3.x",
     "mincer": "0.4.x",
     "redis": "0.8.x",
+    "hiredis": "0.1.x",
     "msgpack": "0.1.x",
     "async": "0.1.x",
     "coffee-script": "1.4.x",

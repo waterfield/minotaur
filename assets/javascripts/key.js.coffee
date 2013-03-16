@@ -7,7 +7,6 @@ class Key extends Backbone.Model
 class Keys extends Backbone.Collection
   model: Key
   url: '/keys'
-  
   comparator: (x, y) ->
     x = x.args()
     y = y.args()
@@ -19,15 +18,15 @@ class Keys extends Backbone.Collection
 
 class KeysPresenter extends Presenter
   constructor: ->
-    @keys = new Keys
+    @collection = new Keys
     @view = new KeysView el: '#keys-container'
     @display null, 0
-    @keys.on 'reset', => @display @keys.toJSON(), @keys.size()
+    @collection.on 'reset', => @display @collection.toJSON(), @collection.size()
     @view.on 'detail', (e) => @trigger 'detail', e
   display: (keys, size) ->
     @view.render keys, size
   search: (value) =>
-    @keys.fetch data: pattern: value
+    @collection.fetch data: pattern: value
 
 class KeysView extends Backbone.View
   events:

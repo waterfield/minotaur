@@ -1,24 +1,25 @@
+class Value extends Backbone.Model
 class ValuePresenter extends Presenter
 	constructor: ->
-		@view = new ValueView el: 
+		@model = new Value
+		@view = new ValueView el: '#value-container'
+		@display ""
 		@view.on 'click', @click
-		unless @data.value == undefined then @data_html = json_to_tree @data.value
-		@render()
-	render: =>
-		@view.render @data_html
-		$('#value-container').html @view.el
-		@
+	display: (data) ->
+		@view.render data
 	click: (target) ->
 		if $(target).hasClass 'closed'
 			$(target).removeClass 'closed'
 		else
 			$(target).addClass 'closed'
+	value: (data) =>
+		@display data
 
 class ValueView extends Backbone.View
 	events:
 		'click li': 'click'
-	render: (data) =>
-		@$el.html Handlebars.compile($('#value-template').html()) html: data
+	render: (data) ->
+		@$el.html Handlebars.compile($('#value-template').html()) html: json_to_tree data
 		@
 	click: (event) ->
 		event.stopPropagation()
